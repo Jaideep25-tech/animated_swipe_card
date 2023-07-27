@@ -1,9 +1,10 @@
 import 'dart:ui';
-import 'package:dummy/animated_swipe_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'models/cart_itme.dart';
 
 class CardDetailsView extends StatefulWidget {
   const CardDetailsView({
@@ -54,7 +55,6 @@ class _CardDetailsViewState extends State<CardDetailsView> {
     _pageScrollNotifier.value = _pageController.page!;
     isReversScroll =
         _pageController.position.userScrollDirection == ScrollDirection.reverse;
-    print("Page Controller Direction : $isReversScroll");
   }
 
   @override
@@ -114,7 +114,6 @@ class _CardDetailsViewState extends State<CardDetailsView> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: IconButton(
                   onPressed: () {},
-                  // arrow_up_right
                   icon: const Icon(
                     CupertinoIcons.rectangle_on_rectangle_angled,
                     size: 24,

@@ -1,51 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:swipe_deck/swipe_deck.dart';
-
-import 'details_view.dart';
-
-class CartItemModel {
-  final int id;
-  final String image;
-  final Color color;
-
-  CartItemModel({required this.id, required this.image, required this.color});
-}
-
-final List<CartItemModel> imageItems = [
-  CartItemModel(
-    id: 1,
-    color: const Color(0xFFEAB9B9),
-    image: "assets/magazine/images/image3.jpeg",
-  ),
-  CartItemModel(
-    id: 2,
-    color: const Color(0xFF989494),
-    image: "assets/magazine/images/image2.jpeg",
-  ),
-  CartItemModel(
-    id: 3,
-    color: const Color(0xFF000000),
-    image: "assets/magazine/images/image1.jpeg",
-  ),
-  CartItemModel(
-    id: 4,
-    color: const Color(0xFFEF994F),
-    image: "assets/magazine/images/image6.jpeg",
-  ),
-  CartItemModel(
-    id: 5,
-    color: const Color(0x010C13AB),
-    image: "assets/magazine/images/image5.jpeg",
-  ),
-];
-
-final List<String> bottomList = [
-  "assets/magazine/images/image7.jpeg",
-  "assets/magazine/images/image8.jpeg",
-  "assets/magazine/images/image9.jpeg",
-];
+import 'models/cart_itme.dart';
+import 'widgets/stack_cards.dart';
 
 class AnimatedSwipeCard extends StatelessWidget {
   const AnimatedSwipeCard({super.key});
@@ -54,9 +11,6 @@ class AnimatedSwipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.sizeOf(context);
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Animated Cart"),
-      // ),
       body: Stack(
         alignment: AlignmentDirectional.center,
         children: [
@@ -202,7 +156,6 @@ class TopContainer extends StatelessWidget {
             ),
 
             const SizedBox(height: 25),
-            // Search Bar
             Container(
               height: 60,
               margin: const EdgeInsets.symmetric(horizontal: 18),
@@ -227,11 +180,9 @@ class TopContainer extends StatelessWidget {
             ),
 
             const SizedBox(height: 80),
-            // Stacked Card
             const StackedCard(),
 
             const SizedBox(height: 80),
-            // Row Text
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
@@ -272,66 +223,6 @@ class TopContainer extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class StackedCard extends StatelessWidget {
-  const StackedCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: SwipeDeck(
-        // This is package That make card Swipe [ https://pub.dev/packages/swipe_deck ]
-        startIndex: 2,
-        emptyIndicator: const SizedBox(
-          child: Center(
-            child: Text("Nothing Here"),
-          ),
-        ),
-        cardSpreadInDegrees: 50.0,
-        // Change the Spread of Background Cards
-        onSwipeLeft: () {
-          // print("USER SWIPED LEFT -> GOING TO NEXT WIDGET");
-        },
-        onSwipeRight: () {
-          // print("USER SWIPED RIGHT -> GOING TO PREVIOUS WIDGET");
-        },
-        onChange: (index) {
-          // print(colors[index]);
-        },
-        widgets: imageItems
-            .map((image) => GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      PageRouteBuilder(
-                        transitionDuration: const Duration(milliseconds: 300),
-                        reverseTransitionDuration:
-                            const Duration(milliseconds: 300),
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            ScaleTransition(
-                          scale: animation,
-                          child: CardDetailsView(
-                              images: imageItems,
-                              currentIndex: imageItems.indexOf(image)),
-                        ),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          return child;
-                        },
-                      ),
-                    );
-                  },
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.zero,
-                      child: Image.asset(
-                        image.image,
-                        fit: BoxFit.cover,
-                      )),
-                ))
-            .toList(),
       ),
     );
   }
